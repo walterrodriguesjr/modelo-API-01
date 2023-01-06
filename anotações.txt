@@ -1,0 +1,165 @@
+01-introdução a APIs no laravel
+
+1-arquitetura de APIs resful e design de APIs 
+-API faz o meu campo entre banco de dados, e a aplicação que vai consumir(web, android, IOS, API)
+-algumas são abertas, outras requerem autenticação 
+-no domininio sempre usará: https://dominio.com.br/api/recurso 
+-os formatos de respostas são: JSON ou XML, mas o principal é o JSON 
+-conhecer os verbos HTTP? GET, POST, PATH, PUT, DELETE, OPTIONS 
+-status code: success 200, redirect 300, client error 400, server error 500
+-existe versionamento da API, no endereço cria-se a v1, em seguida cria-se uma v2 para atualizações, para não prejudicar quem consome a primeira 
+-necessário liberação do CORS 
+-tratamento de erros, interceptar erros e excessões: app/Exceptions/Handler.php 
+-middlewares, que são filtros de acesso. Pode controlar o total de requisições em menos de 1 minutos, por exemplo(robos e etx..)
+
+2-ferramentas para o curso de laravel web services 
+-laradock(usado docker mesmo com template próprio)
+-vs code 
+-postman, app para testes de API, simulando requisições 
+
+3-configurações iniciais no laravel 
+-instalado o template próprio laravel/docker 
+-ajustado o timezone
+-configurado o .env 
+
+
+02-API de categorias 
+
+4-criar model e tabela de categorias laravel web service 
+-criada model e migration de Category 
+-conectado ao banco de dados 
+-rodada as migration pendentes e novas 
+
+5-listar categorias laravel web service 
+-criação do controller de Category
+    php artisan make:controller CategoryController 
+-controller de API é recomendável ficar dentro de uma pasta API 
+-configurado o método index() em CategoryController 
+-criada a Route, index em api.php 
+-para acessar esta Route de api usa: 
+    http://127.0.0.1:8989/api/categories 
+
+6-opção de filtros em categorias laravel web services 
+-criado uma query com where no controller de Category e depois realocada na model de Category 
+
+7-Cadastrar Categoria API laravel 
+-criado o método store() em CategoryController 
+-criado a Route, post, store de CategoryController
+-configurado o $fillable da model Category
+
+8-editar categoria API laravel 
+-criado o método update($id) em CategoryController 
+-criado a Route, put, update de CategoryController
+
+9-validar cadastro API laravel com Form Request 
+-criação da class Form Request para centralizar o sistema de validação 
+    php artisan make:request StoreUpdateFormRequest
+    definir authorize() como true 
+    em rules(), return, feito as regras de validação 
+-no método em que a validação de StoreUpdateFormRequest for utilizada, no parâmetro do método, 
+    deve-se substituir o Request por StoreUpdateFormRequest 
+
+10-validar edição API laravel com Form Request 
+-no método em que a validação de StoreUpdateFormRequest for utilizada, no parâmetro do método, 
+    deve-se substituir o Request por StoreUpdateFormRequest 
+
+11-deletar categoria API no laravel 
+-criado o método delete($id) em CategoryController 
+-criado a Route, delete, delete de CategoryController
+
+12-implementar rotas API simplificadas no laravel 
+-ok, mas não deu boa 
+
+13-visualizar detalhes categoria API laravel 
+-implementando a funcionalidade show 
+-criado o método show($id) em CategoryController 
+-criado a Route, show, de CategoryController
+
+
+03-API de Produtos 
+
+14-Model e Tabelas de Produtos API laravel 
+-produtos seram relacionadas a categoria
+-um produto tem uma categoria, e uma categoria pode ter vários produtos 
+-relacionamento de um para muito, oneToMany 
+-criada model e migration de Product 
+-configurada a migration de Product
+-rodada a migration 
+
+15-Factory Produtos API laravel
+-criar seeders para criar usuário, UsersTableSeeder.php
+    php artisan make:seeder UsersTableSeeder
+-configurada a function run() de UsersTableSeeder.php, para enviar os dados para o banco 
+-rodado o seeder 
+    php artisan db:seed
+-criando o Factory de Product, serve para inserir dados fake 
+    php artisan make:factory ProductFactory , NÃO DEU CERTO, foi feito pelo tinker, modelo do curso de eloquent 
+
+16-definir relacionamento tabela Produtos e Categorias 
+-criado a chave estrangeira de produtos com categorias (nas migrations)
+-não usados seeders, foi usado comandos direto no tinker para gerar dados fakes, configurado em: 
+    Product, foi configurado os dados a serem gerados em ProductFactory.php, e não nos seeders 
+
+17-listar produtos API laravel 
+-criado o controller de Product 
+    php artisan make:controller Api/\ProductController --resource
+    usado o método construtor de Product, para não precisar ficar chamando dentro de cada função ou 
+        parâmetro por injeção de dependência 
+-criado o método index() de ProductController
+-criado a Route, get, de ProductController
+
+18-paginar produtos API 
+-usando em index(), de ProductController, o método paginate(), customizando o total, já que o default é 15 
+-navegando por página desta paginação na URL
+    http://127.0.0.1:8989/api/products?page=2
+
+19-filtros API laravel 
+-a função de filtro(busca), é feito direto na model de Product, o método: getResults()
+-em seguida a função getResults() é chamada no ProductController
+
+20-cadastrar produtos API 
+-feito o método store() em ProductController
+-feito a Route, post, ProductController, store 
+
+21-editar produtos API laravel 
+-feito o método store($id) em ProductController
+-feito a Route, post, ProductController, store, parametro id
+
+22-validações produtos API laravel 
+-criando a class de validação 
+    php artisan make:request StoreUpdateProductFormRequest
+-adicionando a class StoreUpdateProductFormRequest a ProductController
+-não deu certo 
+
+23-deletar produto API laravel 
+-feito o método destroy() em ProductController
+-feito a Route, delete, ProductController, destroy, parametro id
+
+24-exibir(show) produto API laravel 
+-feito o método show() em ProductController
+-feito a Route, get, ProductController, show, parametro id
+
+25-configuração API laravel upload de arquivos 
+-congifurar em: config/filesystems.php
+    em: 'default' => env('FILESYSTEM_DISK', 'public'), altera o local para public 
+rodar o comando: 
+    php artisan storage:link
+
+26-upload de arquivos API laravel 
+-usado modelo de upload no controller do curso de especializaTi laravel 8 (meu github)
+
+27-alterar imagem editar produto API laravel 
+-usado modelo de upload edit image no controller do curso de especializaTi laravel 8 (meu github)
+
+28-deletar imagem ao deletar produto API laravel 
+-usado modelo de upload delete image no controller do curso de especializaTi laravel 8 (meu github)
+
+
+04-mais sobre APIs no laravel 
+
+29-relacionamentos-listar produtos por categoria 
+-
+
+
+
+
