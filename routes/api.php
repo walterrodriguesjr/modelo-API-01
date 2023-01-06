@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\api\PessoaController;
-use App\Http\Controllers\api\ProfissaoController;
+use App\Http\Controllers\api\v1\PessoaController;
+use App\Http\Controllers\api\v1\ProfissaoController;
 use App\Models\Profissao;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,12 +21,14 @@ use Illuminate\Support\Facades\Route;
 }); */
 
 
+Route::group(['prefix' => 'v1'], function() {
 
-Route::any('pessoa/filter', [PessoaController::class, 'filter']);
-Route::get('pessoa', [PessoaController::class, 'index']);
-Route::post('pessoa', [PessoaController::class, 'store']);
-Route::get('pessoa/{id}', [PessoaController::class, 'show']);
-Route::put('pessoa/{id}', [PessoaController::class, 'update']);
-Route::delete('pessoa/{id}', [PessoaController::class, 'destroy']);
-
-Route::get('profissao/{id}/pessoa', [ProfissaoController::class, 'pessoa']);
+    Route::any('pessoa/filter', [PessoaController::class, 'filter']);
+    Route::get('pessoa', [PessoaController::class, 'index']);
+    Route::post('pessoa', [PessoaController::class, 'store']);
+    Route::get('pessoa/{id}', [PessoaController::class, 'show']);
+    Route::put('pessoa/{id}', [PessoaController::class, 'update']);
+    Route::delete('pessoa/{id}', [PessoaController::class, 'destroy']);
+    
+    Route::get('profissao/{id}/pessoa', [ProfissaoController::class, 'pessoa']);
+});

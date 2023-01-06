@@ -164,7 +164,59 @@ rodar o comando:
 -inserindo na busca get por id de pessoa, traz tmb o arrya de profissao dela 
  
 31-versionamento de APIs no laravel 
--
+-criado o versionamento da API, v1. Este deve ser alterado no namespace do controllers, após o api 
+atentar para alterar no arquivo route e controller, criado a pasta v1, dentro da pasta api, e dentro os controllers da v1 
+
+32-alguns detalhes sobre configuração APIs no laravel 
+-ok 
+
+33-limitar total requisições APIs laravel 
+-por padrão, no kernel.php, em $middlewareGroups, em 'api', já vem o: 'throttle:api', que define 
+    que o laravel vai bloquer caso seja feito 60 requisições em 1 minuto, por ser humanamente 
+    impossível 
+
+34-tratamento de exceções API laravel 
+-tratamento de retorno de erro, caso tente uma rota errada ou inexistente 
+    dentro de: app/Exceptions/Handler.php 
+    tratado o erro: NotFoundHttpException
+    lógica criada dentro do método render()
+
+35-tratamento de exceções requisições AJAX laravel 
+-caso o projeto seja tanto o back de uma aplicação(web), quanto uma api, no modo web receberá 
+    requisições AJAX 
+-no mesmo local a aula 34, feito uma condicional que irá retornar o erro tanto se a requisição for 
+    AJAX, e quando não for também
+
+36-tratamento de Erros API laravel usar um verbo HTTP incompátivel
+    dentro de: app/Exceptions/Handler.php 
+    tratado o erro: MethodNotAllowedHttpException
+    lógica criada dentro do método render()
+
+37-tratamento de CORS API laravel 
+-liberação de Cors, autoriza ou não requisições externas na aplicação 
+-define quais tipos de verbo HTTP que a aplicação irá receber, quais são os servidores de origem 
+-é possível restringir para que, a API recebe requisições apenas de determinado Client 
+-é possível definir, que tipo de informações chegará no header da requisição para o client 
+-por padrão tudo vem bloqueado 
+-caso o client seja específico, o Cors possibilita restringir requisições a determinado IP 
+
+-instalando o axios(em vez de javascript puro ou jquery) para fazer requisições AJAX 
+    npm install axios 
+        ou 
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+
+-criado um arquivo HTML index fora da aplicação, incluido um button q faz requisição AXIOS 
+    para tentar acessar a API 
+
+-laravel 8 pra cima já vem instalado o pacote COrs, e já criado o config/cors.php, por padrão vazio
+    dentro basta incluir: quem poderá acessar(por default vem * aceita de qualquer um) 
+    quais verbos HTTP podem ser usado, quais headers podem ser aceito, o response
+NÃO DEU CERTO 
+
+38-tradução de API laravel 
+-usa o pacote Laravel-lang (github) 
+
+
 
 
 
