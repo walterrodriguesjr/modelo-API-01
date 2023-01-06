@@ -52,7 +52,7 @@ class PessoaController extends Controller
 
     public function show($id)
     {
-        $pessoa = Pessoa::find($id);
+        $pessoa = Pessoa::with('profissao')->find($id);
         return $pessoa;
     }
 

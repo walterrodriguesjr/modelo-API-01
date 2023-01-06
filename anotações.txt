@@ -158,8 +158,13 @@ rodar o comando:
 04-mais sobre APIs no laravel 
 
 29-relacionamentos-listar produtos por categoria 
--
+-feito os relacionamentos
 
+30-relacionamentos listar produtos e categoria laravel API 
+-inserindo na busca get por id de pessoa, traz tmb o arrya de profissao dela 
+ 
+31-versionamento de APIs no laravel 
+-
 
 
 
